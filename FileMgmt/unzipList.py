@@ -11,11 +11,9 @@ def unzip_list(file_list, out_dir):
     :param out_dir: path to write unzipped files
     :return: None
     """
-    fileList = os.listdir(file_list)
-    count = 0
     error_list = []
 
-    for f in fileList:
+    for f in file_list:
 
         try:
             if f.endswith('.zip'):
@@ -24,9 +22,6 @@ def unzip_list(file_list, out_dir):
 
         except zipfile.BadZipFile:
             error_list.append(f)
-
-        finally:
-            count += 1
 
     print(f'\n{len(error_list)} Errors:')
     print(error_list)
