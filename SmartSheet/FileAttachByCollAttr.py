@@ -1,8 +1,5 @@
 """
-Downloads row attachments to folder named after the row's value in a specified cell.
-For example all rows with file_id = ABC123 will be downloaded to root\\ABC123
-If the root\\ABC123 folder doesn't exist it will be created.
-This script will not download files of the same name and path, so updated attachment versions will NOT be downloaded
+Downloads row attchments to folder named after a row's cell value in a specified column.
 """
 
 import smartsheet
@@ -106,7 +103,7 @@ def FileAttachByColAttr(sheet_id, root, file_collumn, file_prefix=''):
     for p in problem_list:
         print(p)
 
-# Example
+
 token = 'your api token'
 
 smartsheet_client = smartsheet.Smartsheet(token)
@@ -115,7 +112,7 @@ smartsheet_client.assume_user("you@email.com")
 smartsheet_client.errors_as_exceptions(True)
 
 FileAttachByColAttr(
-    sheet_id=427422951527412,
+    sheet_id=417822959527812,
     root=r'E:\test_ss_to_folder',
     file_collumn='Site ID',
     file_prefix='Site '
