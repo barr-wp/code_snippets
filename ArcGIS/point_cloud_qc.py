@@ -16,11 +16,6 @@ def pointCloudStats(out_folder, las_dataset, sampling_val, count_limit):
         sampling_value=sampling_val
     )
 
-    low = ExtractByAttributes(out_ras, f"Value < {count_limit}")
-    low.save(path.join(out_folder, f'{las_file_name}_POINT_COUNT_{count_limit}.tif'))
-    del(low)
-
-
     # Create las statistics
     print('exporting statistics')
     out_stats = path.join(out_folder, f'{las_file_name}_stats.csv')
