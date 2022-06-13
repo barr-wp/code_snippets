@@ -33,18 +33,18 @@ def tbl_geojson_to_features(csv, out_path, out_name, geometry_type, geom_field, 
 
     # Add fields
 
-    rb_csv = pd.read_csv(csv)
+    df = pd.read_csv(csv)
 
-    # Rename because arc hates hyphens
-    for f in list(rb_csv):
-        new_c = f.replace('-', '_')
-        rb_csv.rename(columns={f: new_c}, inplace=True)
+    # Rename columns because arc hates hyphens
+    for col in list(df):
+        new_c = col.replace('-', '_')
+        df.rename(columns={col: new_c}, inplace=True)
 
     # List dataframe field and datatypes
-    df_fields = zip(list(rb_csv), rb_csv.dtypes)
+    df_fields = zip(list(df), df.dtypes)
     esri_f_list = []
 
-    # Create field dcitionary
+    # Create field list for AddFields
     # Format as [[Field Name, Field Type, {Field Alias}, {Field Length}, {Default Value} {Field Domain}],...] for AddFields
     for f in df_fields:
         esri_f_list.append([f[0], pandas_arc_dtypes[str(f[1])]])
@@ -52,14 +52,14 @@ def tbl_geojson_to_features(csv, out_path, out_name, geometry_type, geom_field, 
     arcpy.management.AddFields(out_fc, esri_f_list)
 
     # Insert rows
-    i_fields = list(rb_csv) + ['SHAPE@']
+    i_fields = list(df) + ['SHAPE@']
     i_fields.remove(geom_field)  # remove this becasue we will write to geometry SHAPE@ token
                                  # also causes problems with sring field length limits in gdb
 
     with arcpy.da.InsertCursor(out_fc, i_fields) as iCursor:
 
         # Iterate through dataframe and insert rows
-        for index, df_row in rb_csv.iterrows():
+        for index, df_row in df.iterrows():
             i_row = []
 
             # Generate insert row except SHAPE@ token at end of list
