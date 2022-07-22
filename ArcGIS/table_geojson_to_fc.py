@@ -5,6 +5,7 @@ from os import path
 def df_to_features(df, out_fc, geometry_type, geom_field, spatial_reference, field_description=None):
     """
     Dataframe with geometry stored in geojson field to a feature class
+    :param df: pandas dataframe
     :param out_fc: feature class path
     :param geometry_type: geometry type
     :param geom_field: field in csv with json string
