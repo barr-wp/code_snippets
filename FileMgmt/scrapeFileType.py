@@ -9,7 +9,7 @@ def check_create_dir(dir_path):
         os.mkdir(dir_path)
 
 
-def scrape_py(rootdir, outdir, extension, parent=True):
+def scrapeFileType(rootdir, outdir, extension, parent=True):
     """
     Recursively iterates over rootdir. Copies files of specified type to outdir. Exports log file with original paths
     :param rootdir: Where files will be copied from
